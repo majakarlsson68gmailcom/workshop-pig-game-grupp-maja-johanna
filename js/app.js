@@ -14,6 +14,9 @@ let isPlaying = true;      // Blir false när någon har vunnit
 
 
 // ---------- 2. Element i DOM:en ----------
+// Tärningen (saknades!)
+const diceEl = document.querySelector(".dice");
+
 // Spelare 1
 const player1Name = document.querySelector("#name-0");
 const player1Panel = document.querySelector(".player-0-panel"); // pga class winner och active sitter här
@@ -59,11 +62,42 @@ function init() {
 
 // SPEL-2: Körs när man klickar på "Slå tärning"
 function rollDice() {
-    const randomNumber = Math.floor(Math.random() * 6) + 1;
-    console.log(randomNumber);
+    if (!isPlaying) return;
 
+    // 1. Slumpa tärning
+    const randomNumber = Math.floor(Math.random() * 6) + 1;
+    console.log("Tärningen visar:", randomNumber);
+
+    // 2. Visa tärningen
+    diceEl.classList.remove('hidden');
+    diceEl.src = `img/dice-${randomNumber}.png`;
+
+    // 3. Om tärningen inte är 1 → lägg till i roundScore
+    if (randomNumber !== 1) {
+        roundScore += randomNumber;
+        document.getElementById(`current-${activePlayer}`).textContent = roundScore;
+    } 
+    // 4. Om tärningen är 1 → byt spelare
+    else {
+        switchPlayer();
+    }
 }
 
+// SPEL-2: Byter aktiv spelare
+function switchPlayer() {
+    // Nollställ omgångspoängen i UI
+    document.getElementById(`current-${activePlayer}`).textContent = 0;
+
+    // Nollställ omgångspoängen i datan
+    roundScore = 0;
+
+    // Byt spelare: 0 → 1 eller 1 → 0
+    activePlayer = activePlayer === 0 ? 1 : 0;
+
+    // Flytta den röda pricken (active-klassen)
+    player0El.classList.toggle("active");
+    player1El.classList.toggle("active");
+}
 
 // SPEL-3 och SPEL-4: Körs när man klickar på "Håll poäng"
 function holdScore() {
@@ -79,3 +113,5 @@ function switchPlayer() {
 // ---------- 4. Händelser ----------
 
 init();
+
+rollBtn.addEventListener("click", rollDice);

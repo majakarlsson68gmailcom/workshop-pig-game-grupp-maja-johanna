@@ -18,10 +18,14 @@ let isPlaying = true;      // Blir false när någon har vunnit
 const diceEl = document.querySelector(".dice");
 
 // Spelare 1
+const player1Name = document.querySelector("#name-0");
+const player1Panel = document.querySelector(".player-0-panel"); // pga class winner och active sitter här
 const player1RoundScore = document.querySelector("#current-0");
 const player1Score =document.querySelector("#score-0");
 
 // Spelare 2
+const player2Name = document.querySelector("#name-1");
+const player2Panel = document.querySelector(".player-1-panel");
 const player2RoundScore = document.querySelector("#current-1");
 const player2Score =document.querySelector("#score-1");
 
@@ -29,6 +33,10 @@ const player2Score =document.querySelector("#score-1");
 const newGameBtn = document.querySelector(".btn-new");
 const rollBtn = document.querySelector(".btn-roll");
 const holdBtn = document.querySelector(".btn-hold");
+
+// Dice
+const dice1 = document.querySelector("#dice-1");
+const dice2 = document.querySelector("#dice-2");
 
 // Score
 const finalScore = document.querySelector(".final-score");
@@ -38,6 +46,17 @@ const finalScore = document.querySelector(".final-score");
 
 // SPEL-1: Startar ett nytt spel
 function init() {
+    // Noll ställa alla värden;
+    scores = [0, 0]; 
+    roundScore = 0; 
+    isPlaying = true; 
+    activePlayer = 0;   
+
+    player1RoundScore.textContent = roundScore;
+    player1Score.textContent = scores[0];
+
+    player2RoundScore.textContent = roundScore;
+    player2Score.textContent = scores[1];
 
 }
 

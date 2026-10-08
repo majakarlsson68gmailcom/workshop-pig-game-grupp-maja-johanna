@@ -5,7 +5,7 @@
 
 // ---------- 1. Speldata ----------
 
-const WINNING_SCORE = 100; // Poäng som krävs för att vinna
+let WINNING_SCORE; // Poäng som krävs för att vinna
 
 let scores = [0, 0];       // Totalpoäng: scores[0] = Spelare 1, scores[1] = Spelare 2
 let roundScore = 0;        // Omgångspoäng för den aktiva spelaren
@@ -42,6 +42,7 @@ const dice2 = document.querySelector("#dice-2");
 // Score
 const finalScore = document.querySelector(".final-score");
 
+const inputScore = document.querySelector(".final-score");
 
 // ---------- 3. Funktioner ----------
 
@@ -139,3 +140,7 @@ init();
 holdBtn.addEventListener("click", holdScore)
 newGameBtn.addEventListener("click", init)
 rollBtn.addEventListener("click", rollDice);
+
+inputScore.addEventListener("keyup", () => {
+    WINNING_SCORE = Number(inputScore.value);
+})

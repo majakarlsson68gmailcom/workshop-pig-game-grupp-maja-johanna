@@ -64,39 +64,36 @@ function init() {
 function rollDice() {
     if (!isPlaying) return;
 
-    // 1. Slumpa tärning
+    // Slumpa tärning
     const randomNumber = Math.floor(Math.random() * 6) + 1;
     console.log("Tärningen visar:", randomNumber);
 
-    // 2. Visa tärningen
-    diceEl.classList.remove('hidden');
+    // Visa rätt tärningsbild
     diceEl.src = `img/dice-${randomNumber}.png`;
 
-    // 3. Om tärningen inte är 1 → lägg till i roundScore
+    // Om tärningen inte är 1 → lägg till i omgångspoängen
     if (randomNumber !== 1) {
         roundScore += randomNumber;
         document.getElementById(`current-${activePlayer}`).textContent = roundScore;
-    } 
-    // 4. Om tärningen är 1 → byt spelare
-    else {
+    } else {
         switchPlayer();
     }
 }
 
 // SPEL-2: Byter aktiv spelare
 function switchPlayer() {
-    // Nollställ omgångspoängen i UI
+    // Nollställ den nuvarande spelarens omgångspoäng i UI
     document.getElementById(`current-${activePlayer}`).textContent = 0;
 
     // Nollställ omgångspoängen i datan
     roundScore = 0;
 
-    // Byt spelare: 0 → 1 eller 1 → 0
+    // Byt spelare
     activePlayer = activePlayer === 0 ? 1 : 0;
 
-    // Flytta den röda pricken (active-klassen)
-    player0El.classList.toggle("active");
-    player1El.classList.toggle("active");
+    // Flytta active-klassen
+    player1Panel.classList.toggle("active");
+    player2Panel.classList.toggle("active");
 }
 
 // SPEL-3 och SPEL-4: Körs när man klickar på "Håll poäng"
@@ -104,10 +101,6 @@ function holdScore() {
 
 }
 
-// SPEL-2: Byter till den andra spelaren
-function switchPlayer() {
-
-}
 
 
 // ---------- 4. Händelser ----------

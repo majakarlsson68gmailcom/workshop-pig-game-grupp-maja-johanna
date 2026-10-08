@@ -102,6 +102,22 @@ function switchPlayer() {
 
 // SPEL-3 och SPEL-4: Körs när man klickar på "Håll poäng"
 function holdScore() {
+    if(!isPlaying) return;
+
+    scores[activePlayer] += roundScore;
+
+    player1Score.textContent = scores[0];
+    player2Score.textContent = scores[1];
+
+    if(scores[activePlayer] >= WINNING_SCORE){
+        isPlaying = false;
+        const winnerPanel = activePlayer === 0 ? player1Panel : player2Panel;
+
+        winnerPanel.classList.add("winner");
+        winnerPanel.classList.remove("active");
+    } else {
+        switchPlayer();
+    }
 
 }
 
@@ -111,4 +127,6 @@ function holdScore() {
 
 init();
 
+holdBtn.addEventListener("click", holdScore)
+newGameBtn.addEventListener("click", init)
 rollBtn.addEventListener("click", rollDice);

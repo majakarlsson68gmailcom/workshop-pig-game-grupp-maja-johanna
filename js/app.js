@@ -15,7 +15,8 @@ let isPlaying = true;      // Blir false när någon har vunnit
 
 // ---------- 2. Element i DOM:en ----------
 // Tärningen (saknades!)
-const diceEl = document.querySelector(".dice");
+// const diceEl = document.querySelector(".dice");
+// Behövs inte längre för 2 tärningar
 
 // Spelare 1
 const player1Name = document.querySelector("#name-0");
@@ -64,19 +65,22 @@ function init() {
 function rollDice() {
     if (!isPlaying) return;
 
-    // Slumpa tärning
-    const randomNumber = Math.floor(Math.random() * 6) + 1;
-    console.log("Tärningen visar:", randomNumber);
+    // Slumpa båda tärningarna
+    const randomNumber1 = Math.floor(Math.random() * 6) + 1;
+    const randomNumber2 = Math.floor(Math.random() * 6) + 1;
 
-    // Visa rätt tärningsbild
-    diceEl.src = `img/dice-${randomNumber}.png`;
+    // Visa rätt tärningsbilder
+    dice1.src = `img/dice-${randomNumber1}.png`;
+    dice2.src = `img/dice-${randomNumber2}.png`;
 
-    // Om tärningen inte är 1 → lägg till i omgångspoängen
-    if (randomNumber !== 1) {
-        roundScore += randomNumber;
-        document.getElementById(`current-${activePlayer}`).textContent = roundScore;
-    } else {
+    // Om någon tärning visar 1 → byt spelare
+    if (randomNumber1 === 1 || randomNumber2 === 1) {
         switchPlayer();
+    } else {
+        // Lägg ihop tärningarna och lägg till i omgångspoängen
+        roundScore += randomNumber1 + randomNumber2;
+
+        document.getElementById(`current-${activePlayer}`).textContent = roundScore;
     }
 }
 

@@ -59,6 +59,13 @@ function init() {
     player2RoundScore.textContent = roundScore;
     player2Score.textContent = scores[1];
 
+    player1Panel.classList.remove("winner");
+    player2Panel.classList.remove("winner", "active");
+    player1Panel.classList.add("active");
+
+    player1Name.textContent = "Spelare 1";
+    player2Name.textContent = "Spelare 2";
+
 }
 
 // SPEL-2: Körs när man klickar på "Slå tärning"
@@ -112,6 +119,8 @@ function holdScore() {
     if(scores[activePlayer] >= WINNING_SCORE){
         isPlaying = false;
         const winnerPanel = activePlayer === 0 ? player1Panel : player2Panel;
+
+       document.querySelector(`#name-${activePlayer}`).textContent = "Vinnare!"
 
         winnerPanel.classList.add("winner");
         winnerPanel.classList.remove("active");
